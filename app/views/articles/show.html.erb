@@ -17,12 +17,14 @@
   <% end %>
 
   </div>
-
-  <%= link_to "Edit", edit_article_path(@article), class:'btn btn-primary' %></li>
+<div class="d-flex align-items-center justify-content-center">
+  <%= link_to "Edit", edit_article_path(@article), class:'btn btn-primary ' %>
   <%= button_to  "Destroy", @article,
                      method: :delete, form:{ data: {confirm: "Are you sure?"}} ,
-                     class:'btn btn-danger'
+                     class:'btn btn-danger mx-5'
   %>
+  <%= link_to "Home", root_path, class:'btn btn-success' %>
+</div>
 
     <%#= link_to "Delete Link",   @article, data:{ turbo_method: :delete ,turbo_confirm: "Are you sure?" }, class:'btn btn-danger' %>
 
