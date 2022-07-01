@@ -12,7 +12,12 @@
   <p>
     <%= button_to 'Destroy Comment', [comment.article, comment],
                   method: :delete,
-                  data: { confirm: "Are you sure?" } %>
+                  data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+
+    <%= link_to 'Delete', url_for(action: :destroy, id:comment.article_id,id: comment.id),
+                data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+
+    <%= button_to "Delete my account", @comment, form: { data: { turbo_confirm: "Are you sure?" } }, method: :delete %>
 
   </p>
 

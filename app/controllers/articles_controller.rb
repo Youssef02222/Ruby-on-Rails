@@ -1,3 +1,6 @@
+
+
+
 class ArticlesController < ApplicationController
   http_basic_authenticate_with name: "Youssef", password: "secret", except: [:index, :show]
   def index
@@ -14,7 +17,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-
+    @article.image.attach(article_params[:image])
     if @article.save
       redirect_to articles_path
     else
@@ -30,7 +33,8 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
-
+    @article.image.purge
+    @article.image.attach(article_params[:image])
     if @article.update(article_params)
       redirect_to @article
     else
@@ -40,17 +44,16 @@ class ArticlesController < ApplicationController
 
 
   def destroy
-    @article = Article.find(params[:id])
-    puts "here"
+     @article = Article.find(params[:id])
+    # puts "here"
     @article.destroy
-
-    redirect_to articles_path, status: :see_other
+    redirect_to articles_path, status: :see_other, notice: "deleted successfully"
   end
 
 
   private
     def article_params
-      params.require(:article).permit(:title, :body, :author, :status)
+      params.require(:article).permit(:title, :body, :author, :status, :image)
     end
 
 
